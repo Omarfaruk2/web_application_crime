@@ -1,10 +1,15 @@
+import React from 'react'
 
-import './App.css'
 
-function App() {
+import AOS from 'aos'
+import 'aos/dist/aos.css' // You can also use <link> for styles
+// ..
+AOS.init()
+
+const App = () => {
   return (
-    <div >
-      <h2>Hello boys how are you</h2>
+    <div>
+      <h2>Hello</h2>
     </div>
   )
 }
