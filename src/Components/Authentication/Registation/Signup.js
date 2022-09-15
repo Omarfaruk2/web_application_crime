@@ -59,7 +59,7 @@ const Signup = () => {
     console.log(user)
 
     if (user) {
-        navigate("/check")
+        navigate("/")
     }
 
 
