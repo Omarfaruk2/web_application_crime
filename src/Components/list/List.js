@@ -1,15 +1,43 @@
 import { Icon } from '@iconify/react'
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
 import Listitem from '../listitem/Listitem'
 import "./List.scss"
 
-const List = () => {
+const List = ({ list }) => {
 
     const [sliteNumber, setSliteNumber] = useState(0)
     const [isMove, setIsMove] = useState(false)
     const listRef = useRef()
+
+
+
+    const [movie, setMovie] = useState()
+    useEffect(() => {
+        const getRandomLists = async () => {
+            try {
+                const res =
+                    await axios.get("https://limitless-inlet-11731.herokuapp.com/movie")
+                setMovie(res.data)
+                // console.log(res)
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        getRandomLists()
+    }, [])
+
+
+
+
+
+
+
+
+
 
     const handleClick = (direction) => {
         setIsMove(true)
@@ -28,24 +56,31 @@ const List = () => {
 
     }
 
+    console.log(movie, "movie")
+
+    const boom = movie?.Search
+
+    console.log(boom, "boom")
+
     return (
         <div className='list'>
-            <span className='listTittle'>Continue to watch</span>
+            <span className='listTittle'>{list?.tittle}</span>
             <div className="wrapper ">
                 <Icon onClick={() => handleClick("left")}
                     style={{ display: !isMove && 'none' }}
                     icon="akar-icons:arrow-back-thick" className='sliderArrow left' />
                 <div className="container" ref={listRef}>
-                    <Listitem index={0} />
-                    <Listitem index={1} />
-                    <Listitem index={2} />
-                    <Listitem index={3} />
-                    <Listitem index={4} />
-                    <Listitem index={5} />
-                    <Listitem index={6} />
-                    <Listitem index={7} />
-                    <Listitem index={8} />
-                    <Listitem index={9} />
+                    {
+                        movie?.map((item, index) => (
+                            < Listitem
+                                movie={movie}
+                                index={index}
+                                item={item}
+                                key={item._id}
+                            />
+
+                        ))
+                    }
                 </div>
                 <Icon onClick={() => handleClick("right")} icon="akar-icons:arrow-forward-thick" className='sliderArrow right' />
             </div>

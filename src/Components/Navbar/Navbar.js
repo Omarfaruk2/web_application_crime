@@ -1,19 +1,33 @@
+import { signOut } from 'firebase/auth'
 import React, { useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { Link } from 'react-router-dom'
+import auth from '../../firebase.init'
 import CustomLink from '../../Hooks/CustomLink '
 import "./Navbar.css"
 
 const Navbar = () => {
 
+    const [user, loading,] = useAuthState(auth)
+
+
+
     const [isScrolled, setIsScrolled] = useState(false)
 
+    if (loading) {
+        return <p>loading</p>
+    }
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true)
         return () => window.onscroll = null
     }
+
+    console.log(user, "user")
+
+
     return (
         <div className="bg-black">
-            <div className="navbar nav-head">
+            <div className="bg-black navbar nav-head">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -64,12 +78,12 @@ const Navbar = () => {
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
-                                    <img src="https://placeimg.com/80/80/people" alt='' />
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGIcdtj17kMFqzfaT4y9osveHnkYerHClu1A&usqp=CAU" alt='' />
                                 </div>
                             </label>
                             <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                                 <li><a>Settings</a></li>
-                                <li><a>Logout</a></li>
+                                <li onClick={() => signOut(auth)}><a>Logout</a></li>
                             </ul>
                         </div>
                     </div>

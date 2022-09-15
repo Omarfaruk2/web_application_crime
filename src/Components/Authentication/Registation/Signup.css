@@ -1,0 +1,25 @@
+.singup-head {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.signup-form input {
+    display: block;
+    margin: 0 auto;
+}
+
+.input-color {
+
+    background-color: #333;
+}
+
+.signup-form {
+    width: 28%;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid black;
+    padding: 50px;
+}
+
+.new {
+    margin-top: 30px;
+}
